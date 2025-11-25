@@ -1,0 +1,40 @@
+.shutdown-container {
+  background-color: #003399; /* Classic XP Blue */
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Tahoma', sans-serif;
+  user-select: none;
+}
+
+.center-box {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  transform: rotate(-10deg); /* Slight tilt like XP logo */
+  
+  div {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .red { background-color: #f25022; border-top-left-radius: 3px; }
+  .green { background-color: #7fba00; border-top-right-radius: 3px; }
+  .blue { background-color: #00a4ef; border-bottom-left-radius: 3px; }
+  .yellow { background-color: #ffb900; border-bottom-right-radius: 3px; }
+}
+
+.text {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}

@@ -1,0 +1,20 @@
+<div class="recycle-bin-container">
+  <div class="toolbar">
+    <button (click)="empty()">Empty Recycle Bin</button>
+  </div>
+  <div class="file-list">
+    <div class="file-item" *ngFor="let item of fileSystem.recycleBinItems()">
+      <div class="icon" [ngClass]="item.id"></div>
+      <div class="details">
+        <div class="name">{{ item.title }}</div>
+        <div class="actions">
+          <button (click)="restore(item.id)">Restore</button>
+          <button (click)="delete(item.id)">Delete</button>
+        </div>
+      </div>
+    </div>
+    <div class="empty-message" *ngIf="fileSystem.recycleBinItems().length === 0">
+      Recycle Bin is empty
+    </div>
+  </div>
+</div>

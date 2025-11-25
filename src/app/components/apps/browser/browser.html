@@ -1,0 +1,15 @@
+<div class="browser-container">
+  <div class="toolbar">
+    <div class="buttons">
+      <button (click)="home()">🏠</button>
+      <button (click)="refresh()">🔄</button>
+    </div>
+    <div class="address-bar">
+      <input #urlInput type="text" [value]="currentUrl" (keydown.enter)="navigate(urlInput.value)">
+      <button (click)="navigate(urlInput.value)">Go</button>
+    </div>
+  </div>
+  <div class="content">
+    <iframe [src]="safeUrl" frameborder="0"></iframe>
+  </div>
+</div>

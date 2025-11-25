@@ -1,0 +1,26 @@
+<div class="messenger-container">
+  <div class="header">
+    <div class="logo"></div>
+    <div class="title">Windows Messenger</div>
+  </div>
+  
+  <div class="user-area">
+    <div class="avatar"></div>
+    <div class="name">Guest User <br> <span>(Online)</span></div>
+  </div>
+  
+  <div class="contacts-list">
+    <div class="group-header">Online ({{ contacts.length }})</div>
+    
+    <div class="contact-item" *ngFor="let contact of contacts" (dblclick)="openLink(contact.link)">
+      <div class="status-icon" [ngClass]="contact.status.toLowerCase()"></div>
+      <div class="contact-name">{{ contact.name }} - {{ contact.status }}</div>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <button>Add a Contact</button>
+    <button>Send an Instant Message</button>
+  </div>
+</div>
+

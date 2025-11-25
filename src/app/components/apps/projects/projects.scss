@@ -1,0 +1,252 @@
+.projects-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #f0f0f0;
+  font-family: 'Tahoma', sans-serif;
+  font-size: 11px;
+  user-select: none;
+
+  .menubar {
+    display: flex;
+    background: #ece9d8;
+    padding: 2px 5px;
+    border-bottom: 1px solid #aca899;
+    
+    span {
+      padding: 2px 6px;
+      cursor: default;
+      &:hover {
+        background: #316ac5;
+        color: white;
+      }
+    }
+  }
+  
+  .toolbar {
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    background: #ece9d8;
+    border-bottom: 1px solid #aca899;
+    gap: 2px;
+    height: 36px;
+    
+    .buttons {
+      display: flex;
+      gap: 0;
+    }
+
+    .separator {
+      width: 1px;
+      height: 30px;
+      background: #aca899;
+      margin: 0 2px;
+      border-right: 1px solid white;
+    }
+    
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid transparent;
+      background: transparent;
+      cursor: pointer;
+      padding: 2px 4px;
+      height: 30px;
+      font-size: 11px;
+      
+      &:hover:not(:disabled) {
+        border: 1px solid #aca899;
+        background: #f0f0f0;
+      }
+
+      &:disabled {
+        color: #aca899;
+        cursor: default;
+      }
+
+      &.back::before { content: '⬅'; margin-right: 4px; font-size: 14px; color: #1f7f40; }
+      &.forward::before { content: '➡'; font-size: 14px; }
+      &.up::before { content: '⬆'; font-size: 14px; color: #e6d33a; }
+      &.search::before { content: '🔍'; margin-right: 4px; }
+      &.folders::before { content: '📂'; margin-right: 4px; }
+      &.views::before { content: '▦'; font-size: 14px; }
+    }
+  }
+
+  .address-bar-container {
+    display: flex;
+    align-items: center;
+    padding: 2px 5px;
+    background: #ece9d8;
+    border-bottom: 1px solid #aca899;
+    gap: 5px;
+
+    label { color: #444; }
+
+    .address-input {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      background: white;
+      border: 1px solid #7f9db9;
+      padding: 2px;
+      height: 20px;
+
+      .icon-folder {
+        width: 16px;
+        height: 16px;
+        background-image: url('/assets/icons/folder.png');
+        background-size: contain;
+        margin-right: 4px;
+      }
+    }
+
+    .go-btn {
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      height: 22px;
+      border: 1px solid #aca899;
+      background: #f0f0f0;
+      cursor: pointer;
+      
+      &::after { content: 'Go'; margin-left: 4px; }
+      &::before { content: '➜'; color: #1f7f40; }
+    }
+  }
+  
+  .content-area {
+    flex: 1;
+    display: flex;
+    background: white;
+    position: relative;
+    overflow: hidden;
+
+    .sidebar {
+      width: 180px;
+      background: linear-gradient(to bottom, #7ba2e7 0%, #6375d6 100%);
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      .sidebar-box {
+        background: white;
+        border-radius: 3px;
+        overflow: hidden;
+
+        .box-header {
+          background: linear-gradient(to right, #fff 0%, #c6d3f7 100%);
+          padding: 4px 8px;
+          font-weight: bold;
+          color: #215dc6;
+          cursor: pointer;
+          
+          &::after {
+            content: '︽';
+            float: right;
+            font-weight: normal;
+          }
+        }
+
+        .box-content {
+          padding: 8px;
+          background: #d6dff7;
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+
+          .task-item {
+            color: #215dc6;
+            cursor: pointer;
+            padding-left: 15px;
+            position: relative;
+
+            &:hover {
+              text-decoration: underline;
+              color: #428eff;
+            }
+
+            &::before {
+              content: '';
+              position: absolute;
+              left: 0;
+              top: 2px;
+              width: 10px;
+              height: 10px;
+              background: #215dc6; /* Placeholder for bullet icon */
+              mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M0,0 L10,5 L0,10 Z'/%3E%3C/svg%3E") no-repeat center;
+              -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M0,0 L10,5 L0,10 Z'/%3E%3C/svg%3E") no-repeat center;
+            }
+          }
+
+          &.details {
+            font-size: 10px;
+            color: #444;
+          }
+        }
+      }
+    }
+
+    .main-view {
+      flex: 1;
+      background: white;
+      padding: 10px;
+      overflow-y: auto;
+
+      .loading, .error {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        color: #666;
+      }
+
+      .repo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 15px;
+        align-items: start;
+
+        .repo-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          cursor: pointer;
+          padding: 5px;
+          border: 1px solid transparent;
+
+          &:hover {
+            background-color: #e8f4ff;
+            border: 1px solid #cce6ff;
+          }
+
+          .repo-icon {
+            width: 48px;
+            height: 48px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23FFA000' d='M40,12H22l-4-4H8c-2.2,0-4,1.8-4,4v8h40v-4C44,13.8,42.2,12,40,12z'/%3E%3Cpath fill='%23FFCA28' d='M40,12H8c-2.2,0-4,1.8-4,4v20c0,2.2,1.8,4,4,4h32c2.2,0,4-1.8,4-4V16C44,13.8,42.2,12,40,12z'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin-bottom: 4px;
+          }
+
+          .repo-name {
+            font-size: 11px;
+            color: #000;
+            word-break: break-word;
+            line-height: 1.2;
+          }
+
+          .repo-desc {
+            display: none; /* Hide description in icon view */
+          }
+        }
+      }
+    }
+  }
+}

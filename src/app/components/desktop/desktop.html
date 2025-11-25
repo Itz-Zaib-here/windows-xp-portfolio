@@ -1,0 +1,53 @@
+<div class="desktop-container" (click)="onDesktopClick($event)" (contextmenu)="onContextMenu($event)">
+  <!-- Startup Sound -->
+  <iframe [src]="startupSoundUrl" style="width:0;height:0;border:0;position:absolute;opacity:0;pointer-events:none;" allow="autoplay"></iframe>
+
+  <div class="icons-container" *ngIf="!refreshing()">
+    <div class="desktop-icon" 
+         *ngFor="let icon of fileSystem.desktopIcons()" 
+         cdkDrag
+         [cdkDragFreeDragPosition]="icon.position"
+         (cdkDragEnded)="onIconDragEnd($event, icon)"
+         (dblclick)="handleIconClick(icon)"
+         (contextmenu)="onContextMenu($event, icon.id)">
+      <div class="icon-img">
+        <div class="icon-placeholder" [ngClass]="icon.id.startsWith('folder') ? 'folder' : icon.id"></div>
+      </div>
+      <div class="icon-text" *ngIf="!icon.isRenaming">{{ icon.title }}</div>
+      <input *ngIf="icon.isRenaming" 
+             [ngModel]="icon.title" 
+             (ngModelChange)="onRenameSubmit(icon, $event)"
+             (blur)="icon.isRenaming = false"
+             (keydown.enter)="icon.isRenaming = false"
+             autofocus
+             class="rename-input">
+    </div>
+  </div>
+
+  <app-window *ngFor="let win of systemState.windows(); trackBy: trackByWindowId" [windowInstance]="win"></app-window>
+
+  <div class="context-menu" 
+       *ngIf="contextMenuVisible()" 
+       [style.top.px]="contextMenuPosition().y" 
+       [style.left.px]="contextMenuPosition().x">
+    <ng-container *ngIf="!contextMenuTargetId">
+      <div class="menu-item" (click)="arrangeIcons()">Arrange Icons By Name</div>
+      <div class="menu-item" (click)="refresh()">Refresh</div>
+      <div class="menu-separator"></div>
+      <div class="menu-item" (click)="createNewFolder()">New Folder</div>
+      <div class="menu-separator"></div>
+      <div class="menu-item" (click)="properties()">Properties</div>
+    </ng-container>
+    <ng-container *ngIf="contextMenuTargetId">
+      <div class="menu-item" (click)="handleIconClick(getIconById(contextMenuTargetId)!)">Open</div>
+      <div class="menu-separator"></div>
+      <div class="menu-item" (click)="renameIcon()">Rename</div>
+      <div class="menu-item" (click)="fileSystem.moveToRecycleBin(contextMenuTargetId)">Delete</div>
+    </ng-container>
+  </div>
+
+  <app-start-menu *ngIf="systemState.startMenuOpen()"></app-start-menu>
+  
+  <app-taskbar></app-taskbar>
+</div>
+

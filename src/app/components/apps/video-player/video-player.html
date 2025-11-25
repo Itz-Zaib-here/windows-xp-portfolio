@@ -1,0 +1,20 @@
+<div class="player-container">
+  <div class="video-frame">
+    <iframe #videoIframe [src]="videoUrl" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  <div class="controls-placeholder">
+    <div class="url-input">
+      <input #urlInput type="text" placeholder="Paste YouTube URL here..." (keydown.enter)="updateVideo(urlInput.value); urlInput.value = ''">
+      <button (click)="updateVideo(urlInput.value); urlInput.value = ''">Play</button>
+    </div>
+    <div class="seeker"></div>
+    <div class="buttons">
+      <button class="btn prev" (click)="previous()" title="Previous">⏮</button>
+      <button class="btn stop" (click)="stop()" title="Stop">⏹</button>
+      <button class="btn play" (click)="play()" title="Play">▶</button>
+      <button class="btn pause" (click)="pause()" title="Pause">⏸</button>
+      <button class="btn next" (click)="next()" title="Next">⏭</button>
+    </div>
+  </div>
+</div>
+

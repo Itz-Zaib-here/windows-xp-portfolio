@@ -1,0 +1,76 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.paint-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #c0c0c0;
+}
+
+.toolbar {
+  height: 60px;
+  background: #ece9d8;
+  border-bottom: 1px solid #808080;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  gap: 10px;
+}
+
+.tools {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  
+  button {
+    font-size: 0.8rem;
+  }
+}
+
+.colors {
+  display: flex;
+  flex-wrap: wrap;
+  width: 150px;
+  gap: 1px;
+  border: 1px solid #808080;
+  padding: 1px;
+  background: white;
+}
+
+.color-box {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  border: 1px solid #808080;
+  
+  &.selected {
+    border: 1px solid white;
+    outline: 1px solid black;
+    z-index: 1;
+  }
+}
+
+.current-color {
+  width: 30px;
+  height: 30px;
+  border: 2px solid #808080;
+}
+
+.canvas-area {
+  flex: 1;
+  overflow: auto;
+  padding: 10px;
+  background: #808080;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  canvas {
+    background: white;
+    cursor: crosshair;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+  }
+}

@@ -1,0 +1,107 @@
+.desktop-container {
+  width: 100vw;
+  height: 100vh;
+  background: url("https://i.postimg.cc/BbwCBqB6/puzkje595kf81.jpg") no-repeat center center fixed;
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+}
+
+.icons-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.desktop-icon {
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px;
+  border: 1px solid transparent;
+  position: absolute; /* Changed to absolute for free drag */
+  
+  &:hover {
+    background-color: rgba(0, 100, 255, 0.2);
+    border: 1px solid rgba(0, 100, 255, 0.4);
+    border-radius: 3px;
+  }
+  
+  &:active {
+    background-color: rgba(0, 100, 255, 0.4);
+  }
+  
+  .icon-img {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    .icon-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 40px;
+      
+      &.projects::after { content: '👩‍💻'; }
+      &.browser::after { content: '🌐'; }
+      &.paint::after { content: '🎨'; }
+      &.video::after { content: '🎬'; }
+      &.connect::after { content: '💬'; }
+      &.recycle::after { content: '🗑️'; }
+      &.folder::after { content: '📁'; }
+      &.resume::after { content: '📝'; }
+      &.experience::after { content: '💼'; }
+      &.services::after { content: '🛠️'; }
+    }
+  }
+  
+  .icon-text {
+    color: white;
+    text-shadow: 1px 1px 2px black;
+    text-align: center;
+    font-size: 0.9rem;
+    line-height: 1.2;
+    user-select: none;
+  }
+
+  .rename-input {
+    width: 100%;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+}
+
+.context-menu {
+  position: fixed;
+  background: white;
+  border: 1px solid #aca899;
+  box-shadow: 2px 2px 2px rgba(0,0,0,0.4);
+  padding: 2px;
+  min-width: 150px;
+  z-index: 9999;
+  
+  .menu-item {
+    padding: 4px 20px;
+    font-family: 'Tahoma', sans-serif;
+    font-size: 11px;
+    cursor: default;
+    
+    &:hover {
+      background-color: #316ac5;
+      color: white;
+    }
+  }
+  
+  .menu-separator {
+    height: 1px;
+    background-color: #aca899;
+    margin: 2px 0;
+  }
+}

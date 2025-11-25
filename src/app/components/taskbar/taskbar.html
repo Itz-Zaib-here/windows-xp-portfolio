@@ -1,0 +1,34 @@
+<div class="taskbar-container">
+  <div class="start-button" (click)="toggleStartMenu()" [class.active]="systemState.startMenuOpen()">
+    <div class="logo">
+      <div class="red"></div>
+      <div class="green"></div>
+      <div class="blue"></div>
+      <div class="yellow"></div>
+    </div>
+    <span>start</span>
+  </div>
+  
+  <div class="divider"></div>
+  
+  <div class="tasks-area">
+    <div class="task-button" 
+         *ngFor="let win of systemState.windows()" 
+         [class.active]="systemState.activeWindowId() === win.id && !win.isMinimized"
+         (click)="onTaskClick(win.id)">
+      <div class="icon" [ngClass]="win.appId"></div>
+      <div class="title">{{ win.title }}</div>
+    </div>
+  </div>
+  
+  <div class="tray-area">
+    <div class="tray-icons">
+      <!-- Placeholder tray icons -->
+      <div class="tray-icon volume"></div>
+    </div>
+    <div class="clock">
+      {{ currentTime | date:'shortTime' }}
+    </div>
+  </div>
+</div>
+

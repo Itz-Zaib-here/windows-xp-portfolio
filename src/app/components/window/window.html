@@ -1,0 +1,33 @@
+<div class="window-container" 
+     cdkDrag 
+     [cdkDragFreeDragPosition]="windowInstance.position"
+     (cdkDragEnded)="onDragEnd($event)"
+     [style.z-index]="windowInstance.zIndex"
+     [style.width.px]="windowInstance.isMaximized ? null : windowInstance.size.width"
+     [style.height.px]="windowInstance.isMaximized ? null : windowInstance.size.height"
+     [class.maximized]="windowInstance.isMaximized"
+     [class.minimized]="windowInstance.isMinimized"
+     (mousedown)="onFocus()">
+  
+  <div class="title-bar" cdkDragHandle (dblclick)="maximize()">
+    <div class="title-bar-text">
+      <div class="icon" [ngClass]="windowInstance.appId"></div>
+      {{ windowInstance.title }}
+    </div>
+    <div class="title-bar-controls">
+      <button aria-label="Minimize" (click)="minimize()"></button>
+      <button aria-label="Maximize" (click)="maximize()"></button>
+      <button aria-label="Close" class="close-btn" (click)="close()"></button>
+    </div>
+  </div>
+  
+  <div class="window-body">
+    <ng-container *ngComponentOutlet="getComponent(windowInstance.appId)"></ng-container>
+  </div>
+
+  <!-- Resize Handles -->
+  <div class="resize-handle e" (mousedown)="onResizeStart($event, 'e')"></div>
+  <div class="resize-handle s" (mousedown)="onResizeStart($event, 's')"></div>
+  <div class="resize-handle se" (mousedown)="onResizeStart($event, 'se')"></div>
+</div>
+

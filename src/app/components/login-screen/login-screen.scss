@@ -1,0 +1,146 @@
+.login-container {
+  background-color: #003399;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Tahoma', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, #5a7edc 0%, #003399 100%);
+    z-index: 0;
+  }
+}
+
+.top-bar, .bottom-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: #001166;
+  z-index: 1;
+  border-bottom: 2px solid #ff9900;
+}
+
+.top-bar { top: 0; }
+.bottom-bar { bottom: 0; border-top: 2px solid #ff9900; border-bottom: none; }
+
+.content {
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  color: white;
+}
+
+.left-panel {
+  text-align: right;
+  padding-right: 20px;
+}
+
+.windows-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-bottom: 20px;
+  
+  .logo-graphic {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-bottom: 5px;
+    div { width: 20px; height: 20px; }
+    .red { background: #f25022; border-top-left-radius: 3px; }
+    .green { background: #7fba00; border-top-right-radius: 3px; }
+    .blue { background: #00a4ef; border-bottom-left-radius: 3px; }
+    .yellow { background: #ffb900; border-bottom-right-radius: 3px; }
+  }
+  
+  .text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    
+    .microsoft { font-size: 1rem; font-weight: bold; }
+    .xp { 
+      font-size: 2.5rem; 
+      font-weight: bold; 
+      span { color: #ff9900; font-style: italic; margin-left: 5px; }
+    }
+  }
+}
+
+.instruction {
+  font-size: 1.2rem;
+  color: #b3c7f7;
+}
+
+.divider {
+  width: 2px;
+  height: 300px;
+  background: linear-gradient(to bottom, transparent, #8faef5, transparent);
+}
+
+.right-panel {
+  padding-left: 20px;
+}
+
+.user-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+  
+  .user-icon {
+    width: 60px;
+    height: 60px;
+    background: #ffcc00;
+    border: 2px solid white;
+    border-radius: 5px;
+    overflow: hidden;
+    img { width: 100%; height: 100%; object-fit: cover; }
+  }
+  
+  .user-info {
+    .username { font-size: 1.5rem; font-weight: bold; }
+    .status { font-size: 0.9rem; color: #b3c7f7; }
+  }
+}
+
+.shutdown-btn {
+  position: absolute;
+  bottom: 25px;
+  left: 30px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  cursor: pointer;
+  
+  .icon {
+    width: 30px;
+    height: 30px;
+    background: #ff3300;
+    border-radius: 5px;
+    border: 2px solid white;
+  }
+}

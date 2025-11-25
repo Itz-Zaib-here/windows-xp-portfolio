@@ -1,0 +1,88 @@
+.boot-container {
+  background-color: #000;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  user-select: none;
+}
+
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.windows-logo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin-bottom: 10px;
+  
+  div {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .red { background-color: #f25022; border-top-left-radius: 3px; }
+  .green { background-color: #7fba00; border-top-right-radius: 3px; }
+  .blue { background-color: #00a4ef; border-bottom-left-radius: 3px; }
+  .yellow { background-color: #ffb900; border-bottom-right-radius: 3px; }
+}
+
+.text {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.xp-text {
+  font-size: 3rem;
+  font-weight: bold;
+  
+  span {
+    color: #f25022;
+    font-style: italic;
+    margin-left: 5px;
+  }
+}
+
+.loading-bar {
+  width: 200px;
+  height: 15px;
+  border: 2px solid #b2b2b2;
+  border-radius: 4px;
+  padding: 2px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 50px;
+}
+
+.progress {
+  display: flex;
+  gap: 5px;
+  position: absolute;
+  animation: load 2s linear infinite;
+  
+  .block {
+    width: 10px;
+    height: 100%;
+    background: linear-gradient(to bottom, #2d50a0, #6b92e3, #2d50a0);
+    border-radius: 2px;
+  }
+}
+
+@keyframes load {
+  0% { left: -50px; }
+  100% { left: 200px; }
+}
+
+.copyright {
+  font-size: 0.8rem;
+  position: absolute;
+  bottom: 20px;
+}

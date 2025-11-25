@@ -1,0 +1,81 @@
+<div class="services-container">
+  <div class="menubar">
+    <span>File</span>
+    <span>Edit</span>
+    <span>View</span>
+    <span>Favorites</span>
+    <span>Tools</span>
+    <span>Help</span>
+  </div>
+  
+  <div class="toolbar">
+    <div class="buttons">
+      <button class="nav-btn back" disabled>Back</button>
+      <button class="nav-btn forward" disabled></button>
+      <button class="nav-btn up" disabled title="Up One Level"></button>
+    </div>
+    <div class="separator"></div>
+    <div class="buttons">
+      <button class="nav-btn search">Search</button>
+      <button class="nav-btn folders">Folders</button>
+    </div>
+    <div class="separator"></div>
+    <div class="buttons">
+      <button class="nav-btn views" title="Views"></button>
+    </div>
+  </div>
+
+  <div class="address-bar-container">
+    <label>Address</label>
+    <div class="address-input">
+      <div class="icon-folder"></div>
+      <span>C:\Documents and Settings\User\My Services</span>
+    </div>
+    <button class="go-btn">Go</button>
+  </div>
+
+  <div class="content-area">
+    <div class="sidebar">
+      <div class="sidebar-box">
+        <div class="box-header">Service Tasks</div>
+        <div class="box-content">
+          <div class="task-item">Request a Quote</div>
+          <div class="task-item">View Portfolio</div>
+        </div>
+      </div>
+      
+      <div class="sidebar-box">
+        <div class="box-header">Details</div>
+        <div class="box-content details">
+          <ng-container *ngIf="selectedService() as service; else noSelection">
+            <p><strong>{{ service.title }}</strong></p>
+            <p>{{ service.description }}</p>
+            <hr>
+            <p><strong>Features:</strong></p>
+            <ul style="padding-left: 15px; margin: 5px 0;">
+              <li *ngFor="let feature of service.features">{{ feature }}</li>
+            </ul>
+          </ng-container>
+          <ng-template #noSelection>
+            <p>Select a service to view details.</p>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-view" (click)="selectedService.set(null)">
+      <div class="service-grid">
+        <div class="service-item" 
+             *ngFor="let service of services" 
+             [class.selected]="selectedService() === service"
+             (click)="$event.stopPropagation(); select(service)">
+          <div class="service-icon"></div>
+          <div class="service-info">
+            <div class="service-title">{{ service.title }}</div>
+            <div class="service-desc">{{ service.description }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

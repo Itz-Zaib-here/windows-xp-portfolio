@@ -1,0 +1,121 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.messenger-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #eef3fe;
+  font-family: 'Tahoma', sans-serif;
+}
+
+.header {
+  height: 40px;
+  background: linear-gradient(to right, #ffffff 0%, #eef3fe 100%);
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  gap: 10px;
+  border-bottom: 1px solid #ccc;
+  
+  .logo {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    
+    &::after { content: '💬'; }
+  }
+  
+  .title {
+    font-weight: bold;
+    color: #444;
+  }
+}
+
+.user-area {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #dbe8f9;
+  border-bottom: 1px solid #ccc;
+  
+  .avatar {
+    width: 40px;
+    height: 40px;
+    background: #ccc;
+    border: 1px solid #999;
+  }
+  
+  .name {
+    font-size: 0.9rem;
+    span { color: #666; font-size: 0.8rem; }
+  }
+}
+
+.contacts-list {
+  flex: 1;
+  padding: 10px;
+  overflow: auto;
+  background: white;
+  border: 1px solid #ccc;
+  margin: 10px;
+}
+
+.group-header {
+  font-weight: bold;
+  color: #003399;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 5px;
+  cursor: pointer;
+  
+  &:hover {
+    background: #eef3fe;
+  }
+  
+  .status-icon {
+    width: 10px;
+    height: 10px;
+    background: #ccc;
+    
+    &.online { background: #00ff00; }
+    &.away { background: #ffcc00; }
+    &.busy { background: #ff0000; }
+  }
+  
+  .contact-name {
+    font-size: 0.9rem;
+  }
+}
+
+.footer {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  
+  button {
+    background: transparent;
+    border: none;
+    text-align: left;
+    color: #003399;
+    cursor: pointer;
+    padding: 2px;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

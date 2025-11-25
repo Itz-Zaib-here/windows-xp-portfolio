@@ -1,0 +1,75 @@
+.recycle-bin-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Tahoma', sans-serif;
+  
+  .toolbar {
+    padding: 5px;
+    background: #f0f0f0;
+    border-bottom: 1px solid #ccc;
+    
+    button {
+      padding: 2px 10px;
+    }
+  }
+  
+  .file-list {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    background: white;
+    
+    .file-item {
+      display: flex;
+      align-items: center;
+      padding: 5px;
+      border-bottom: 1px solid #eee;
+      
+      &:hover {
+        background-color: #eef;
+      }
+      
+      .icon {
+        width: 32px;
+        height: 32px;
+        margin-right: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        
+        &.projects::after { content: '📁'; }
+        &.browser::after { content: '🌐'; }
+        &.paint::after { content: '🎨'; }
+        &.video::after { content: '🎬'; }
+        &.connect::after { content: '💬'; }
+        &.folder::after { content: '📁'; }
+      }
+      
+      .details {
+        flex: 1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+        .name {
+          font-size: 12px;
+        }
+        
+        .actions {
+          button {
+            margin-left: 5px;
+            font-size: 11px;
+          }
+        }
+      }
+    }
+    
+    .empty-message {
+      text-align: center;
+      color: #888;
+      margin-top: 20px;
+    }
+  }
+}

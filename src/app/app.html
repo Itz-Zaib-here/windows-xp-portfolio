@@ -1,0 +1,5 @@
+<app-boot-screen *ngIf="systemState.bootState() === 'booting'"></app-boot-screen>
+<app-login-screen *ngIf="systemState.bootState() === 'login'"></app-login-screen>
+<app-desktop *ngIf="systemState.bootState() === 'desktop'"></app-desktop>
+<app-shutdown-screen *ngIf="systemState.bootState() === 'shutdown'"></app-shutdown-screen>
+<app-blank-screen *ngIf="systemState.bootState() === 'blank'"></app-blank-screen>

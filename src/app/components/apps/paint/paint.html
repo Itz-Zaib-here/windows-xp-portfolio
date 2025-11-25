@@ -1,0 +1,24 @@
+<div class="paint-container">
+  <div class="toolbar">
+    <div class="tools">
+      <button (click)="clear()">New</button>
+    </div>
+    <div class="colors">
+      <div class="color-box" 
+           *ngFor="let color of colors" 
+           [style.background-color]="color"
+           [class.selected]="selectedColor === color"
+           (click)="selectColor(color)"></div>
+    </div>
+    <div class="current-color" [style.background-color]="selectedColor"></div>
+  </div>
+  
+  <div class="canvas-area">
+    <canvas #canvas 
+            (mousedown)="startDrawing($event)" 
+            (mousemove)="draw($event)" 
+            (mouseup)="stopDrawing()" 
+            (mouseleave)="stopDrawing()"></canvas>
+  </div>
+</div>
+

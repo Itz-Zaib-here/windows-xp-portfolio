@@ -1,0 +1,82 @@
+<div class="experience-container">
+  <div class="menubar">
+    <span>File</span>
+    <span>Edit</span>
+    <span>View</span>
+    <span>Favorites</span>
+    <span>Tools</span>
+    <span>Help</span>
+  </div>
+  
+  <div class="toolbar">
+    <div class="buttons">
+      <button class="nav-btn back" disabled>Back</button>
+      <button class="nav-btn forward" disabled></button>
+      <button class="nav-btn up" disabled title="Up One Level"></button>
+    </div>
+    <div class="separator"></div>
+    <div class="buttons">
+      <button class="nav-btn search">Search</button>
+      <button class="nav-btn folders">Folders</button>
+    </div>
+    <div class="separator"></div>
+    <div class="buttons">
+      <button class="nav-btn views" title="Views"></button>
+    </div>
+  </div>
+
+  <div class="address-bar-container">
+    <label>Address</label>
+    <div class="address-input">
+      <div class="icon-folder"></div>
+      <span>C:\Documents and Settings\User\Experience</span>
+    </div>
+    <button class="go-btn">Go</button>
+  </div>
+
+  <div class="content-area">
+    <div class="sidebar">
+      <div class="sidebar-box">
+        <div class="box-header">Experience Tasks</div>
+        <div class="box-content">
+          <div class="task-item">View as Slide Show</div>
+          <div class="task-item">Print this file</div>
+        </div>
+      </div>
+      
+      <div class="sidebar-box">
+        <div class="box-header">Details</div>
+        <div class="box-content details">
+          <ng-container *ngIf="selectedExperience() as exp; else noSelection">
+            <p><strong>{{ exp.title }}</strong></p>
+            <p>{{ exp.company }}</p>
+            <p><em>{{ exp.period }}</em></p>
+            <hr>
+            <p>{{ exp.description }}</p>
+            <hr>
+            <p><strong>Tech Stack:</strong></p>
+            <p>{{ exp.technologies.join(', ') }}</p>
+          </ng-container>
+          <ng-template #noSelection>
+            <p>Select an item to view its description.</p>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-view" (click)="selectedExperience.set(null)">
+      <div class="exp-grid">
+        <div class="exp-item" 
+             *ngFor="let exp of experiences" 
+             [class.selected]="selectedExperience() === exp"
+             (click)="$event.stopPropagation(); select(exp)">
+          <div class="exp-icon"></div>
+          <div class="exp-info">
+            <div class="exp-title">{{ exp.title }}</div>
+            <div class="exp-company">{{ exp.company }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

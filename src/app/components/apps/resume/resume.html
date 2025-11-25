@@ -1,0 +1,12 @@
+<div class="resume-container">
+  <div class="toolbar">
+    <div class="buttons">
+      <button (click)="download()" class="download-btn">
+        <span class="icon">💾</span> Download Resume
+      </button>
+    </div>
+  </div>
+  <div class="content">
+    <iframe [src]="safeUrl" frameborder="0" allow="autoplay"></iframe>
+  </div>
+</div>

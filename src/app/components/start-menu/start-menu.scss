@@ -1,0 +1,183 @@
+.start-menu-container {
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  width: 380px;
+  background: white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  box-shadow: 2px -2px 5px rgba(0,0,0,0.5);
+  z-index: 9999;
+  font-family: 'Tahoma', sans-serif;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #003399;
+}
+
+.header {
+  height: 60px;
+  background: linear-gradient(to bottom, #1c5cc6 0%, #3c8d0d 100%); /* XP Blue header actually */
+  background: linear-gradient(to bottom, #245edb 0%, #3f8cf3 100%);
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  gap: 10px;
+  color: white;
+  border-top: 1px solid rgba(255,255,255,0.3);
+  
+  .user-icon {
+    width: 40px;
+    height: 40px;
+    background: #ffcc00;
+    border: 2px solid white;
+    border-radius: 3px;
+    overflow: hidden;
+    img { width: 100%; height: 100%; object-fit: cover; }
+  }
+  
+  .username {
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+  }
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  border-top: 2px solid #ff9900;
+}
+
+.left-panel {
+  flex: 1;
+  background: white;
+  padding: 10px 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.right-panel {
+  flex: 1;
+  background: #d3e5fa;
+  padding: 10px 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-left: 1px solid #95bdee;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  
+  &:hover {
+    background: #316ac5;
+    color: white;
+    border: 1px solid #003399;
+    
+    .subtitle { color: #d3e5fa; }
+  }
+  
+  .icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    flex-shrink: 0;
+    
+    &.browser::after { content: '🌐'; }
+    &.email::after { content: '📧'; }
+    &.paint::after { content: '🎨'; font-size: 20px; }
+    &.video::after { content: '🎬'; font-size: 20px; }
+    &.connect::after { content: '💬'; font-size: 20px; }
+    &.folder::after { content: '📁'; font-size: 20px; }
+    &.computer::after { content: '💻'; font-size: 20px; }
+    &.control::after { content: '⚙️'; font-size: 20px; }
+    &.help::after { content: '❓'; font-size: 16px; }
+    &.search::after { content: '🔍'; font-size: 16px; }
+    &.run::after { content: '🏃'; font-size: 16px; }
+  }
+  
+  .text {
+    display: flex;
+    flex-direction: column;
+    
+    .title { font-weight: bold; font-size: 0.9rem; }
+    .subtitle { font-size: 0.75rem; color: #666; }
+  }
+}
+
+.separator {
+  height: 1px;
+  background: rgba(0,0,0,0.1);
+  margin: 5px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.5);
+}
+
+.all-programs {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  gap: 5px;
+  
+  &:hover {
+    background: #316ac5;
+    color: white;
+  }
+  
+  .arrow {
+    width: 0; 
+    height: 0; 
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid #333;
+  }
+  
+  &:hover .arrow { border-left-color: white; }
+}
+
+.footer {
+  height: 40px;
+  background: linear-gradient(to bottom, #245edb 0%, #3f8cf3 100%);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 10px;
+  gap: 10px;
+  color: white;
+  border-top: 2px solid #ff9900;
+  
+  .log-off, .turn-off {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    padding: 5px;
+    
+    &:hover {
+      filter: brightness(1.2);
+    }
+    
+    .icon {
+      width: 20px;
+      height: 20px;
+      background: #ff9900;
+      border: 1px solid white;
+      border-radius: 3px;
+    }
+  }
+  
+  .turn-off .icon { background: #ff3300; }
+}
