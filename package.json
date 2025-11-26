@@ -2,11 +2,8 @@
   "name": "windows-xp-portfolio",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "build-prod": "ng build --configuration production --base-href \"/windows-xp-portfolio/\"",
+    "deploy": "npm run build-prod && npx angular-cli-ghpages --dir=dist/windows-xp-portfolio/browser"
   },
   "prettier": {
     "printWidth": 100,
@@ -38,6 +35,7 @@
     "@angular/build": "^21.0.0",
     "@angular/cli": "^21.0.0",
     "@angular/compiler-cli": "^21.0.0",
+    "angular-cli-ghpages": "^2.0.3",
     "typescript": "~5.9.2"
   }
 }
