@@ -1,4 +1,4 @@
-import { Component, inject, signal, WritableSignal } from '@angular/core';
+import { Component, OnInit, inject, signal, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { DragDropModule, CdkDragEnd } from '@angular/cdk/drag-drop';
@@ -6,13 +6,14 @@ import { FormsModule } from '@angular/forms';
 import { Taskbar } from '../taskbar/taskbar';
 import { StartMenu } from '../start-menu/start-menu';
 import { Window } from '../window/window';
+import { PropertiesDialog } from '../properties-dialog/properties-dialog';
 import { SystemStateService } from '../../services/system-state';
 import { FileSystemService, DesktopIcon } from '../../services/file-system';
 
 @Component({
   selector: 'app-desktop',
   standalone: true,
-  imports: [CommonModule, DragDropModule, FormsModule, Taskbar, StartMenu, Window],
+  imports: [CommonModule, DragDropModule, FormsModule, Taskbar, StartMenu, Window, PropertiesDialog],
   templateUrl: './desktop.html',
   styleUrl: './desktop.scss',
 })
@@ -27,6 +28,15 @@ export class Desktop {
   contextMenuPosition = signal({ x: 0, y: 0 });
   refreshing = signal(false);
   contextMenuTargetId: string | null = null;
+  propertiesDialogIcon = signal<DesktopIcon | null>(null);
+
+  ngOnInit(): void {
+    // Ensure icons are arranged once the desktop has initialized so nothing is hidden
+    // Use a short delay to wait for layout measurements (mirrors manual "Arrange Icons By Name" behavior)
+    setTimeout(() => {
+      this.arrangeIcons();
+    }, 100);
+  }
 
   handleIconClick(icon: DesktopIcon) {
     if (icon.isRenaming) return;
@@ -78,6 +88,10 @@ export class Desktop {
   trackByWindowId(index: number, window: any): string {
     return window.id;
   }
+
+  trackByIconId(index: number, icon: DesktopIcon): string {
+    return icon.id;
+  }
   
   onDesktopClick(event: MouseEvent) {
     this.contextMenuVisible.set(false);
@@ -87,12 +101,14 @@ export class Desktop {
       }
     }
     
-    // Stop renaming if clicking elsewhere
-    this.fileSystem.desktopIcons().forEach(icon => {
-      if (icon.isRenaming) {
-        icon.isRenaming = false;
-      }
-    });
+    // Stop renaming if clicking elsewhere (and not on the input itself)
+    if (!(event.target as HTMLElement).classList.contains('rename-input')) {
+      this.fileSystem.desktopIcons().forEach(icon => {
+        if (icon.isRenaming) {
+          this.fileSystem.setRenaming(icon.id, false);
+        }
+      });
+    }
   }
 
   onContextMenu(event: MouseEvent, iconId?: string) {
@@ -116,6 +132,40 @@ export class Desktop {
     const icons = [...this.fileSystem.desktopIcons()];
     icons.sort((a, b) => a.title.localeCompare(b.title));
     
+    this.layoutIcons(icons);
+    
+    this.contextMenuVisible.set(false);
+  }
+
+  arrangeIconsByCategory() {
+    const myApps = ['projects', 'experience', 'services', 'resume', 'connect'];
+    const systemApps = ['paint', 'video', 'browser', 'recycle'];
+
+    const icons = [...this.fileSystem.desktopIcons()];
+    
+    icons.sort((a, b) => {
+      const aIsMy = myApps.includes(a.id);
+      const bIsMy = myApps.includes(b.id);
+      const aIsSystem = systemApps.includes(a.id);
+      const bIsSystem = systemApps.includes(b.id);
+
+      // My Apps first
+      if (aIsMy && !bIsMy) return -1;
+      if (!aIsMy && bIsMy) return 1;
+
+      // System Apps last
+      if (aIsSystem && !bIsSystem) return 1;
+      if (!aIsSystem && bIsSystem) return -1;
+
+      // If both are same category (or both unknown), sort by title
+      return a.title.localeCompare(b.title);
+    });
+
+    this.layoutIcons(icons);
+    this.contextMenuVisible.set(false);
+  }
+
+  private layoutIcons(icons: DesktopIcon[]) {
     let x = 10;
     let y = 10;
     const gap = 90;
@@ -129,8 +179,6 @@ export class Desktop {
         x += gap;
       }
     });
-    
-    this.contextMenuVisible.set(false);
   }
 
   createNewFolder() {
@@ -146,22 +194,51 @@ export class Desktop {
     this.contextMenuVisible.set(false);
   }
 
-  renameIcon() {
-    if (this.contextMenuTargetId) {
-      const icon = this.fileSystem.desktopIcons().find(i => i.id === this.contextMenuTargetId);
-      if (icon) {
-        icon.isRenaming = true;
+  renameIcon(event?: MouseEvent) {
+    if (event) {
+      event.stopPropagation();
+    }
+    
+    // Ensure no other icon is in rename mode
+    this.fileSystem.desktopIcons().forEach(icon => {
+      if (icon.isRenaming) {
+        this.fileSystem.setRenaming(icon.id, false);
       }
+    });
+
+    if (this.contextMenuTargetId) {
+      // We need to update the signal in the service to trigger change detection
+      this.fileSystem.setRenaming(this.contextMenuTargetId, true);
+      
+      // Focus the input after a short delay to allow rendering
+      setTimeout(() => {
+        const input = document.querySelector('.rename-input') as HTMLInputElement;
+        if (input) {
+          input.focus();
+          input.select();
+        }
+      }, 50);
     }
     this.contextMenuVisible.set(false);
   }
 
   onRenameSubmit(icon: DesktopIcon, newName: string) {
-    this.fileSystem.renameIcon(icon.id, newName);
+    if (newName && newName.trim().length > 0) {
+      this.fileSystem.renameIcon(icon.id, newName);
+    } else {
+      this.fileSystem.setRenaming(icon.id, false);
+    }
   }
 
   properties() {
-    alert('Display Properties: Background settings would go here!');
+    if (this.contextMenuTargetId) {
+      const icon = this.fileSystem.desktopIcons().find(i => i.id === this.contextMenuTargetId);
+      if (icon) {
+        this.propertiesDialogIcon.set(icon);
+      }
+    } else {
+      alert('Display Properties: Background settings would go here!');
+    }
     this.contextMenuVisible.set(false);
   }
 

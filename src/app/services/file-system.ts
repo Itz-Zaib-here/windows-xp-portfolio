@@ -128,6 +128,10 @@ export class FileSystemService {
     this.desktopIcons.update(icons => icons.map(i => i.id === id ? { ...i, position } : i));
   }
 
+  setRenaming(id: string, isRenaming: boolean) {
+    this.desktopIcons.update(icons => icons.map(i => i.id === id ? { ...i, isRenaming } : i));
+  }
+
   renameIcon(id: string, newTitle: string) {
     this.desktopIcons.update(icons => icons.map(i => i.id === id ? { ...i, title: newTitle, isRenaming: false } : i));
   }
