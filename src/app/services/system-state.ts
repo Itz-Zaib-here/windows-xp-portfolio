@@ -12,6 +12,7 @@ export interface WindowInstance {
   zIndex: number;
   position: { x: number; y: number };
   size: { width: number; height: number };
+  data?: any;
 }
 
 @Injectable({
@@ -25,7 +26,7 @@ export class SystemStateService {
 
   private zIndexCounter = 100;
 
-  openWindow(appId: string, title: string, icon: string) {
+  openWindow(appId: string, title: string, icon: string, data?: any, size?: { width: number, height: number }) {
     const id = Math.random().toString(36).substring(7);
     const newWindow: WindowInstance = {
       id,
@@ -36,7 +37,8 @@ export class SystemStateService {
       isMaximized: false,
       zIndex: ++this.zIndexCounter,
       position: { x: 100 + (this.windows().length * 20), y: 100 + (this.windows().length * 20) },
-      size: { width: 600, height: 400 }
+      size: size || { width: 700, height: 400 },
+      data
     };
     
     this.windows.update(w => [...w, newWindow]);

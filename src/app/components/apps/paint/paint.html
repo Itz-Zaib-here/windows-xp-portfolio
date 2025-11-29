@@ -1,8 +1,39 @@
 <div class="paint-container">
   <div class="toolbar">
-    <div class="tools">
-      <button (click)="clear()">New</button>
+    <div class="tools-group">
+      <div class="tool-row">
+        <button [class.active]="currentTool === 'pencil'" (click)="setTool('pencil')" title="Pencil">✏️</button>
+        <button [class.active]="currentTool === 'eraser'" (click)="setTool('eraser')" title="Eraser">🧼</button>
+      </div>
+      <div class="tool-row">
+        <button [class.active]="currentTool === 'brush'" (click)="setTool('brush')" title="Brush">🖌️</button>
+        <button (click)="clear()" title="Clear Canvas">🗑️</button>
+      </div>
     </div>
+    
+    <div class="tools-group">
+      <div class="tool-row">
+        <button [class.active]="currentTool === 'line'" (click)="setTool('line')" title="Line">📏</button>
+        <button [class.active]="currentTool === 'rect'" (click)="setTool('rect')" title="Rectangle">⬜</button>
+      </div>
+      <div class="tool-row">
+        <button [class.active]="currentTool === 'circle'" (click)="setTool('circle')" title="Circle">⭕</button>
+        <button (click)="save()" title="Save Image">💾</button>
+      </div>
+    </div>
+
+    <div class="size-group">
+        <div class="size-option" [class.active]="lineWidth === 2" (click)="setSize(2)">
+            <div class="dot small"></div>
+        </div>
+        <div class="size-option" [class.active]="lineWidth === 5" (click)="setSize(5)">
+            <div class="dot medium"></div>
+        </div>
+        <div class="size-option" [class.active]="lineWidth === 8" (click)="setSize(8)">
+            <div class="dot large"></div>
+        </div>
+    </div>
+
     <div class="colors">
       <div class="color-box" 
            *ngFor="let color of colors" 
@@ -10,7 +41,9 @@
            [class.selected]="selectedColor === color"
            (click)="selectColor(color)"></div>
     </div>
-    <div class="current-color" [style.background-color]="selectedColor"></div>
+    <div class="current-color-display">
+        <div class="current-color" [style.background-color]="selectedColor"></div>
+    </div>
   </div>
   
   <div class="canvas-area">

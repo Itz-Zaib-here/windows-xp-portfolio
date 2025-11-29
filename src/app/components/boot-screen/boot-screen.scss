@@ -9,80 +9,117 @@
   color: white;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   user-select: none;
+  cursor: none; /* Hide cursor during boot */
 }
 
-.logo-container {
+.center-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 50px;
+  margin-bottom: 100px;
 }
 
-.windows-logo {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2px;
-  margin-bottom: 10px;
+.logo-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 60px;
+  gap: 10px;
+}
+
+.flag-container {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   
-  div {
-    width: 30px;
-    height: 30px;
+  .xp-flag {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+  .microsoft {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1;
+    margin-bottom: 2px;
   }
   
-  .red { background-color: #f25022; border-top-left-radius: 3px; }
-  .green { background-color: #7fba00; border-top-right-radius: 3px; }
-  .blue { background-color: #00a4ef; border-bottom-left-radius: 3px; }
-  .yellow { background-color: #ffb900; border-bottom-right-radius: 3px; }
-}
-
-.text {
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-.xp-text {
-  font-size: 3rem;
-  font-weight: bold;
+  .windows-xp {
+    display: flex;
+    align-items: baseline;
+    line-height: 1;
+    
+    .win {
+      font-size: 42px;
+      font-weight: 900; /* Extra bold */
+      letter-spacing: -1px;
+    }
+    
+    .xp {
+      font-size: 42px;
+      font-weight: 900;
+      font-style: italic;
+      color: #ff6600; /* XP Orange */
+      margin-left: 5px;
+      position: relative;
+      top: -5px; /* Slight superscript effect */
+    }
+  }
   
-  span {
-    color: #f25022;
-    font-style: italic;
-    margin-left: 5px;
+  .edition {
+    font-size: 14px;
+    letter-spacing: 1px;
+    margin-top: 5px;
+    text-align: right; /* Usually aligned to the right of the block */
   }
 }
 
 .loading-bar {
-  width: 200px;
-  height: 15px;
+  width: 180px;
+  height: 12px;
   border: 2px solid #b2b2b2;
   border-radius: 4px;
   padding: 2px;
+  background: #000;
   position: relative;
   overflow: hidden;
-  margin-bottom: 50px;
+  box-sizing: content-box;
 }
 
-.progress {
-  display: flex;
-  gap: 5px;
+.progress-block {
+  width: 10px;
+  height: 100%;
+  background: linear-gradient(to bottom, #2d50a0 0%, #6b92e3 50%, #2d50a0 100%);
+  border-radius: 2px;
   position: absolute;
-  animation: load 2s linear infinite;
+  top: 2px;
+  left: -20px;
+  animation: xp-load 2s linear infinite;
+  box-shadow: 0 0 2px rgba(45, 80, 160, 0.5);
   
-  .block {
-    width: 10px;
-    height: 100%;
-    background: linear-gradient(to bottom, #2d50a0, #6b92e3, #2d50a0);
-    border-radius: 2px;
-  }
+  &.delay-1 { animation-delay: 0s; }
+  &.delay-2 { animation-delay: 0.15s; }
+  &.delay-3 { animation-delay: 0.3s; }
 }
 
-@keyframes load {
-  0% { left: -50px; }
-  100% { left: 200px; }
+@keyframes xp-load {
+  0% { left: -20px; }
+  100% { left: 100%; }
 }
 
 .copyright {
-  font-size: 0.8rem;
   position: absolute;
-  bottom: 20px;
+  bottom: 30px;
+  text-align: center;
+  font-size: 12px;
+  color: #b2b2b2;
+  line-height: 1.4;
 }

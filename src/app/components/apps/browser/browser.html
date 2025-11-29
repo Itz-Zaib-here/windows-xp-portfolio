@@ -7,9 +7,122 @@
     <div class="address-bar">
       <input #urlInput type="text" [value]="currentUrl" (keydown.enter)="navigate(urlInput.value)">
       <button (click)="navigate(urlInput.value)">Go</button>
+      <button (click)="openExternal()" title="Open in new tab" style="margin-left: 5px;">↗️</button>
     </div>
   </div>
   <div class="content">
-    <iframe [src]="safeUrl" frameborder="0"></iframe>
+    <!-- Standard Iframe -->
+    <iframe *ngIf="viewMode() === 'iframe'" [src]="safeUrl" frameborder="0"></iframe>
+
+    <!-- GitHub View -->
+    <div *ngIf="viewMode() === 'github'" class="custom-view github-view">
+      <div class="gh-header" *ngIf="githubProfile() as profile">
+        <img [src]="profile.avatar_url" class="gh-avatar">
+        <div class="gh-info">
+          <h1>{{ profile.name }}</h1>
+          <p class="gh-login">@{{ profile.login }}</p>
+          <p class="gh-bio">{{ profile.bio }}</p>
+          <div class="gh-stats">
+            <span><b>{{ profile.followers }}</b> followers</span>
+            <span><b>{{ profile.following }}</b> following</span>
+            <span><b>{{ profile.public_repos }}</b> repos</span>
+          </div>
+        </div>
+        <button class="gh-btn" (click)="openExternal()">View on GitHub</button>
+      </div>
+      
+      <div class="gh-repos">
+        <div class="repo-card" *ngFor="let repo of githubRepos()">
+          <div class="repo-name">
+            <a [href]="repo.html_url" target="_blank">{{ repo.name }}</a>
+            <span class="repo-visibility">{{ repo.visibility }}</span>
+          </div>
+          <p class="repo-desc">{{ repo.description }}</p>
+          <div class="repo-meta">
+            <span class="repo-lang" *ngIf="repo.language">
+              <span class="lang-color"></span> {{ repo.language }}
+            </span>
+            <span class="repo-stars">⭐ {{ repo.stargazers_count }}</span>
+            <span class="repo-updated">Updated {{ repo.updated_at | date }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LinkedIn View -->
+    <div *ngIf="viewMode() === 'linkedin'" class="custom-view linkedin-view">
+      <div class="li-card">
+        <div class="li-cover"></div>
+        <div class="li-content">
+          <div class="li-avatar"></div>
+          <h1>ShahZaib Akmal</h1>
+          <h2>Software Engineer | Angular | TypeScript</h2>
+          <p class="li-location">Pakistan</p>
+          <div class="li-actions">
+            <button class="li-btn primary" (click)="openExternal()">Connect</button>
+            <button class="li-btn secondary" (click)="openExternal()">Message</button>
+          </div>
+          <div class="li-about">
+            <h3>About</h3>
+            <p>Passionate software engineer specializing in frontend development with Angular. Building cool things like this Windows XP portfolio!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WhatsApp View -->
+    <div *ngIf="viewMode() === 'whatsapp'" class="custom-view whatsapp-view">
+      <div class="wa-container">
+        <div class="wa-header">
+          <div class="wa-avatar"></div>
+          <div class="wa-info">
+            <div class="wa-name">ShahZaib Akmal</div>
+            <div class="wa-status">Online</div>
+          </div>
+        </div>
+        <div class="wa-chat">
+          <div class="wa-message received">
+            Hello! Thanks for visiting my portfolio.
+            <span class="wa-time">10:00 AM</span>
+          </div>
+          <div class="wa-message received">
+            You can chat with me directly on WhatsApp.
+            <span class="wa-time">10:01 AM</span>
+          </div>
+        </div>
+        <div class="wa-input-area">
+          <button class="wa-btn" (click)="openExternal()">Start Chat on WhatsApp</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Email View -->
+    <div *ngIf="viewMode() === 'email'" class="custom-view email-view">
+      <div class="email-container">
+        <div class="email-toolbar-top">
+          <button (click)="sendEmail()">
+            <div class="icon send"></div>
+            <span>Send</span>
+          </button>
+        </div>
+        <div class="email-headers">
+          <div class="field">
+            <span class="label">To:</span>
+            <div class="value">itz.zaib.here@gmail.com</div>
+          </div>
+          <div class="field">
+            <span class="label">Cc:</span>
+            <div class="value"></div>
+          </div>
+          <div class="field">
+            <span class="label">Subject:</span>
+            <input class="value-input" [value]="emailSubject()" (input)="emailSubject.set($any($event.target).value)">
+          </div>
+        </div>
+        <div class="email-body">
+          <textarea [value]="emailBody()" (input)="emailBody.set($any($event.target).value)" placeholder="Type your message here... (Clicking Send will open your default mail client)"></textarea>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

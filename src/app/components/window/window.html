@@ -22,7 +22,7 @@
   </div>
   
   <div class="window-body">
-    <ng-container *ngComponentOutlet="getComponent(windowInstance.appId)"></ng-container>
+    <ng-container *ngComponentOutlet="getComponent(windowInstance.appId); inputs: windowInstance.data"></ng-container>
   </div>
 
   <!-- Resize Handles -->

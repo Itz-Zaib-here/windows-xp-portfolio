@@ -77,26 +77,58 @@
 .contact-item {
   display: flex;
   align-items: center;
-  gap: 5px;
-  padding: 2px 5px;
+  gap: 10px;
+  padding: 5px;
   cursor: pointer;
+  border: 1px solid transparent;
+  text-decoration: none; /* Added for <a> tag */
+  color: inherit;        /* Added for <a> tag */
   
   &:hover {
     background: #eef3fe;
+    border: 1px solid #ccc;
   }
   
-  .status-icon {
-    width: 10px;
-    height: 10px;
-    background: #ccc;
+  .contact-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
     
-    &.online { background: #00ff00; }
-    &.away { background: #ffcc00; }
-    &.busy { background: #ff0000; }
+    &.whatsapp::after { content: '📞'; }
+    &.email::after { content: '📧'; }
+    &.github::after { content: '💻'; }
+    &.linkedin::after { content: '👔'; }
   }
   
-  .contact-name {
-    font-size: 0.9rem;
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    
+    .contact-name {
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+    
+    .contact-status {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.8rem;
+      color: #666;
+      
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        
+        &.online { background: #7fba00; }
+        &.away { background: #ffb900; }
+        &.busy { background: #f25022; }
+      }
+    }
   }
 }
 

@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { SystemStateService } from '../../services/system-state';
+import { FileSystemService } from '../../services/file-system';
 
 @Component({
   selector: 'app-start-menu',
@@ -12,6 +13,9 @@ import { SystemStateService } from '../../services/system-state';
 })
 export class StartMenu {
   systemState = inject(SystemStateService);
+  fileSystem = inject(FileSystemService);
+  
+  showAllPrograms = signal(false);
 
   openApp(id: string, title: string, icon: string) {
     this.systemState.openWindow(id, title, icon);
@@ -26,6 +30,10 @@ export class StartMenu {
   logOff() {
     this.systemState.bootState.set('shutdown');
     this.systemState.closeStartMenu();
+  }
+
+  toggleAllPrograms() {
+    this.showAllPrograms.update(v => !v);
   }
 }
 

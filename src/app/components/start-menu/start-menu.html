@@ -3,19 +3,19 @@
     <div class="user-icon">
       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png" alt="User">
     </div>
-    <div class="username">Administrator</div>
+    <div class="username">ShahZaib Akmal</div>
   </div>
   
   <div class="body">
     <div class="left-panel">
-      <div class="menu-item" (click)="openLink('https://google.com')">
+      <div class="menu-item" (click)="openApp('browser', 'Internet Explorer', 'assets/icons/ie.png')">
         <div class="icon browser"></div>
         <div class="text">
           <div class="title">Internet</div>
           <div class="subtitle">Internet Explorer</div>
         </div>
       </div>
-      <div class="menu-item" (click)="openLink('https://github.com')">
+      <div class="menu-item" (click)="openApp('connect', 'Connect', 'assets/icons/msn.png')">
         <div class="icon email"></div>
         <div class="text">
           <div class="title">E-mail</div>
@@ -38,26 +38,39 @@
         <div class="text">Windows Messenger</div>
       </div>
       
-      <div class="all-programs">
+      <div class="all-programs" (click)="toggleAllPrograms()">
         <div class="arrow"></div>
         All Programs
       </div>
     </div>
+
+    <!-- All Programs List Overlay -->
+    <div class="all-programs-list" *ngIf="showAllPrograms()">
+      <div class="program-item" *ngFor="let icon of fileSystem.desktopIcons()" (click)="openApp(icon.id, icon.title, icon.icon)">
+        <div class="program-icon" [ngClass]="icon.id"></div>
+        <div class="program-text">{{ icon.title }}</div>
+      </div>
+      
+      <div class="back-button" (click)="toggleAllPrograms()">
+        <div class="arrow-back"></div>
+        Back
+      </div>
+    </div>
     
     <div class="right-panel">
-      <div class="menu-item" (click)="openLink('https://github.com')">
+      <div class="menu-item" (click)="openApp('projects', 'My Projects', 'assets/icons/folder.png')">
         <div class="icon folder"></div>
         <div class="text">My Documents</div>
       </div>
-      <div class="menu-item">
+      <div class="menu-item" (click)="openApp('experience', 'My Experience', 'assets/icons/folder.png')">
         <div class="icon folder"></div>
         <div class="text">My Pictures</div>
       </div>
-      <div class="menu-item">
+      <div class="menu-item" (click)="openApp('services', 'My Services', 'assets/icons/folder.png')">
         <div class="icon folder"></div>
         <div class="text">My Music</div>
       </div>
-      <div class="menu-item">
+      <div class="menu-item" (click)="openApp('resume', 'My Resume', 'assets/icons/notepad.png')">
         <div class="icon computer"></div>
         <div class="text">My Computer</div>
       </div>
@@ -68,7 +81,7 @@
         <div class="icon control"></div>
         <div class="text">Control Panel</div>
       </div>
-      <div class="menu-item">
+      <div class="menu-item" (click)="openLink('https://mail.google.com/mail/?view=cm&fs=1&to=itz.zaib.here@gmail.com&su=Let%27s%20Connect%20-%20Portfolio%20Inquiry&body=Hi%20Shahzaib!%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect%20with%20you.')">
         <div class="icon help"></div>
         <div class="text">Help and Support</div>
       </div>

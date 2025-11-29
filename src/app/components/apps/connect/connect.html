@@ -12,10 +12,19 @@
   <div class="contacts-list">
     <div class="group-header">Online ({{ contacts.length }})</div>
     
-    <div class="contact-item" *ngFor="let contact of contacts" (dblclick)="openLink(contact.link)">
-      <div class="status-icon" [ngClass]="contact.status.toLowerCase()"></div>
-      <div class="contact-name">{{ contact.name }} - {{ contact.status }}</div>
-    </div>
+    <a class="contact-item" *ngFor="let contact of contacts" 
+       [href]="contact.type === 'external' ? contact.link : null"
+       [target]="contact.type === 'external' ? '_blank' : null"
+       (click)="handleContactClick($event, contact)">
+      <div class="contact-icon" [ngClass]="contact.id"></div>
+      <div class="contact-info">
+        <div class="contact-name">{{ contact.name }}</div>
+        <div class="contact-status">
+          <div class="status-dot" [ngClass]="contact.status.toLowerCase()"></div>
+          {{ contact.status }}
+        </div>
+      </div>
+    </a>
   </div>
   
   <div class="footer">

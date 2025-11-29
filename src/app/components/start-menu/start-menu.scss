@@ -47,6 +47,93 @@
   display: flex;
   flex: 1;
   border-top: 2px solid #ff9900;
+  position: relative; /* Added for absolute positioning of all-programs-list */
+}
+
+.all-programs-list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%; /* Matches left-panel flex: 1 vs right-panel flex: 1 */
+  height: 100%;
+  background: white;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 5px;
+  overflow-y: auto;
+  border-right: 1px solid #95bdee;
+  
+  .program-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px;
+    cursor: pointer;
+    
+    &:hover {
+      background: #316ac5;
+      color: white;
+    }
+    
+    .program-icon {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 16px;
+      flex-shrink: 0;
+      
+      &.browser::after { content: '🌐'; }
+      &.email::after { content: '📧'; }
+      &.paint::after { content: '🎨'; }
+      &.video::after { content: '🎬'; }
+      &.connect::after { content: '💬'; }
+      &.folder::after { content: '📁'; }
+      &.computer::after { content: '💻'; }
+      &.control::after { content: '⚙️'; }
+      &.help::after { content: '❓'; }
+      &.search::after { content: '🔍'; }
+      &.run::after { content: '🏃'; }
+      
+      /* Mappings for Desktop Icons */
+      &.projects::after, &.experience::after, &.services::after { content: '📁'; }
+      &.resume::after { content: '📝'; }
+      &.recycle::after { content: '🗑️'; }
+    }
+    
+    .program-text {
+      font-size: 0.8rem;
+    }
+  }
+
+  .back-button {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    gap: 5px;
+    border-top: 1px solid #ccc;
+    
+    &:hover {
+      background: #316ac5;
+      color: white;
+      
+      .arrow-back { border-right-color: white; }
+    }
+    
+    .arrow-back {
+      width: 0; 
+      height: 0; 
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      border-right: 5px solid #333;
+    }
+  }
 }
 
 .left-panel {

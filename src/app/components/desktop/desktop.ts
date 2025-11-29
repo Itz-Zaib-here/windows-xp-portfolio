@@ -95,8 +95,12 @@ export class Desktop {
   
   onDesktopClick(event: MouseEvent) {
     this.contextMenuVisible.set(false);
+    
+    // Handle Start Menu closing
     if (this.systemState.startMenuOpen()) {
-      if ((event.target as HTMLElement).classList.contains('desktop-container')) {
+      const target = event.target as HTMLElement;
+      // Don't close if clicking inside Start Menu or Start Button
+      if (!target.closest('app-start-menu') && !target.closest('.start-button')) {
         this.systemState.closeStartMenu();
       }
     }
